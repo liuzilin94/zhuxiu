@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数绘珠光 - 启动页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 主色系 - 瓷青 */
+            --primary-light: #7BA3A8;
+            --primary: #5B8A8F;
+            --primary-dark: #3D6B70;
+            --primary-darker: #2D5458;
+            
+            /* 辅助色系 - 米白 */
+            --bg-primary: #FDFBF7;
+            --bg-secondary: #F8F5EF;
+            --bg-card: #FFFFFF;
+            --bg-muted: #F5F2EB;
+            
+            /* 中性色系 */
+            --text-primary: #2C3E50;
+            --text-secondary: #5D6D7E;
+            --text-muted: #95A5A6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(180deg, #FDFBF7 0%, #EDE9E0 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 珠粒粒子 */
+        .pearl-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .pearl {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), var(--primary-light) 50%, var(--primary) 100%);
+            box-shadow: 0 2px 8px rgba(91, 138, 143, 0.3), inset 0 1px 2px rgba(255,255,255,0.5);
+            opacity: 0;
+            animation: pearlFade 3s ease-out forwards;
+        }
+
+        @keyframes pearlFade {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            30% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            70% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+        }
+
+        /* 主内容区 */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo图形 - 珠绣意象 */
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary-darker) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 8px 32px rgba(91, 138, 143, 0.4),
+                0 0 60px rgba(91, 138, 143, 0.2),
+                inset 0 2px 4px rgba(255,255,255,0.3);
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 8px 32px rgba(91, 138, 143, 0.4),
+                    0 0 60px rgba(91, 138, 143, 0.2),
+                    inset 0 2px 4px rgba(255,255,255,0.3);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 
+                    0 12px 40px rgba(91, 138, 143, 0.5),
+                    0 0 80px rgba(91, 138, 143, 0.3),
+                    inset 0 2px 4px rgba(255,255,255,0.3);
+            }
+        }
+
+        /* 珠子装饰 */
+        .bead {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, var(--primary-light));
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .bead-1 { top: -8px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; }
+        .bead-2 { top: 8px; left: -6px; width: 14px; height: 14px; }
+        .bead-3 { top: 8px; right: -6px; width: 14px; height: 14px; }
+        .bead-4 { bottom: 8px; left: -4px; width: 10px; height: 10px; }
+        .bead-5 { bottom: 8px; right: -4px; width: 10px; height: 10px; }
+
+        /* 绣字 */
+        .logo-text {
+            font-family: "Noto Serif SC", serif;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary-darker) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 8px;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 副标题 */
+        .subtitle {
+            font-family: "Noto Sans SC", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            margin-top: 16px;
+        }
+
+        /* 加载动画 */
+        .loading-bar {
+            width: 120px;
+            height: 3px;
+            background: rgba(91, 138, 143, 0.2);
+            border-radius: 2px;
+            margin-top: 48px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-dark));
+            border-radius: 2px;
+            animation: loading 3s ease-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* 底部文字 */
+        .footer {
+            position: absolute;
+            bottom: 60px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        /* 珠粒散落动画 */
+        .falling-pearl {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), var(--primary-light));
+            opacity: 0;
+            animation: fallPearl 3s ease-out forwards;
+        }
+
+        @keyframes fallPearl {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.5);
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.4;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 珠粒背景容器 -->
+    <div class="pearl-container" id="pearlContainer"></div>
+    
+    <!-- 主内容 -->
+    <div class="content">
+        <!-- Logo区 -->
+        <div class="logo-container">
+            <div class="logo-circle">
+                <span class="logo-text">绣</span>
+            </div>
+            <div class="bead bead-1"></div>
+            <div class="bead bead-2"></div>
+            <div class="bead bead-3"></div>
+            <div class="bead bead-4"></div>
+            <div class="bead bead-5"></div>
+        </div>
+        
+        <!-- 标题 -->
+        <h1 class="logo-text">数绘珠光</h1>
+        
+        <!-- 副标题 -->
+        <p class="subtitle">泉州珠绣 · 非遗数字化传承</p>
+        
+        <!-- 加载条 -->
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+    
+    <!-- 底部文字 -->
+    <div class="footer">
+        <p class="footer-text">loading...</p>
+    </div>
+
+    <script>
+        // 动态生成珠粒粒子
+        function createPearls() {
+            const container = document.getElementById('pearlContainer');
+            const pearlCount = 30;
+            
+            for (let i = 0; i < pearlCount; i++) {
+                const pearl = document.createElement('div');
+                pearl.className = 'pearl';
+                
+                // 随机大小 8-16px
+                const size = Math.random() * 8 + 8;
+                pearl.style.width = size + 'px';
+                pearl.style.height = size + 'px';
+                
+                // 随机位置
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                pearl.style.left = x + '%';
+                pearl.style.top = y + '%';
+                
+                // 随机延迟
+                pearl.style.animationDelay = (Math.random() * 2) + 's';
+                
+                container.appendChild(pearl);
+            }
+            
+            // 添加下落珠子
+            for (let i = 0; i < 15; i++) {
+                const fallingPearl = document.createElement('div');
+                fallingPearl.className = 'falling-pearl';
+                fallingPearl.style.left = Math.random() * 100 + '%';
+                fallingPearl.style.animationDelay = (Math.random() * 2.5) + 's';
+                fallingPearl.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(fallingPearl);
+            }
+        }
+        
+        // 初始化
+        createPearls();
+        
+        // 3秒后跳转（演示用，实际项目中这里会跳转到首页）
+        // setTimeout(() => {
+        //     console.log('跳转到首页...');
+        // }, 3000);
+    </script>
+</body>
+</html>

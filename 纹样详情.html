@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数绘珠光 - 纹样详情</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #5B8A8F; --primary-light: #7BA3A8; --primary-dark: #3D6B70; --bg-primary: #FDFBF7; --bg-card: #FFFFFF; --bg-muted: #F5F2EB; --accent-red: #C84B31; --accent-gold: #C9A962; --text-primary: #2C3E50; --text-secondary: #5D6D7E; --text-muted: #95A5A6; --border-light: #E8E4DC; --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --radius-md: 8px; --radius-lg: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: var(--bg-primary); color: var(--text-primary); padding-bottom: 80px; min-height: 100vh; }
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%); }
+        .header-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+        .header-btn svg { width: 20px; height: 20px; color: var(--text-primary); }
+        /* 纹样大图 */
+        .pattern-image { width: 100%; aspect-ratio: 3/4; background: linear-gradient(135deg, var(--primary-light), var(--primary)); display: flex; align-items: center; justify-content: center; position: relative; }
+        .pattern-placeholder { width: 60%; height: 60%; opacity: 0.3; }
+        .favorite-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+        .favorite-btn svg { width: 20px; height: 20px; color: var(--text-muted); }
+        .favorite-btn.active svg { color: var(--accent-red); fill: var(--accent-red); }
+        /* 纹样信息 */
+        .pattern-info { background: var(--bg-card); padding: 20px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin-top: -20px; position: relative; }
+        .pattern-name { font-family: "Noto Serif SC", serif; font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+        .pattern-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+        .pattern-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .pattern-tag { font-size: 12px; color: var(--text-secondary); background: var(--bg-muted); padding: 4px 10px; border-radius: 4px; }
+        .divider { height: 1px; background: var(--border-light); margin: 16px 0; }
+        /* 介绍 */
+        .intro-section { background: var(--bg-card); padding: 20px; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+        .intro-text { font-size: 14px; line-height: 1.8; color: var(--text-secondary); }
+        /* 配色方案 */
+        .color-section { background: var(--bg-card); padding: 20px; margin-top: 12px; }
+        .color-list { display: flex; gap: 12px; }
+        .color-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .color-swatch { width: 44px; height: 44px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .color-name { font-size: 11px; color: var(--text-muted); }
+        /* 工艺步骤 */
+        .steps-section { background: var(--bg-card); padding: 20px; margin-top: 12px; }
+        .steps-list { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+        .step-item { flex-shrink: 0; width: 70px; text-align: center; }
+        .step-circle { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), var(--primary)); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 600; }
+        .step-name { font-size: 12px; color: var(--text-secondary); }
+        /* 相关推荐 */
+        .recommend-section { background: var(--bg-card); padding: 20px; margin-top: 12px; }
+        .recommend-grid { display: flex; gap: 12px; overflow-x: auto; }
+        .recommend-card { width: 100px; flex-shrink: 0; }
+        .recommend-image { width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--primary-light), var(--primary)); margin-bottom: 8px; }
+        .recommend-name { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* 底部按钮 */
+        .action-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 80px; background: var(--bg-card); border-top: 1px solid var(--border-light); display: flex; align-items: center; padding: 0 16px; padding-bottom: env(safe-area-inset-bottom); z-index: 100; }
+        .action-btn { flex: 1; height: 48px; border-radius: 24px; font-size: 15px; font-weight: 500; cursor: pointer; }
+        .btn-secondary { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: white; margin-left: 12px; }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <button class="header-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="header-btn favorite-btn" onclick="this.classList.toggle('active')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+    </div>
+    <!-- 纹样大图 -->
+    <div class="pattern-image">
+        <svg class="pattern-placeholder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <!-- 纹样信息 -->
+    <div class="pattern-info">
+        <div class="pattern-name">凤穿牡丹</div>
+        <div class="pattern-meta">传统吉祥纹样 | 寓意富贵荣华</div>
+        <div class="pattern-tags"><span class="pattern-tag">服装</span><span class="pattern-tag">箱包</span><span class="pattern-tag">家居</span></div>
+    </div>
+    <!-- 介绍 -->
+    <div class="intro-section">
+        <div class="section-title">纹样介绍</div>
+        <div class="intro-text">凤穿牡丹是泉州珠绣传统纹样之一，寓意吉祥如意、富贵荣华。凤凰为百鸟之王，牡丹为百花之王，两者结合象征着美好的爱情和富贵的生活。该纹样在闽南地区广泛使用，是传统婚嫁、节庆必备的吉祥图案。</div>
+    </div>
+    <!-- 配色方案 -->
+    <div class="color-section">
+        <div class="section-title">配色方案</div>
+        <div class="color-list">
+            <div class="color-item"><div class="color-swatch" style="background: #C84B31;"></div><span class="color-name">朱红</span></div>
+            <div class="color-item"><div class="color-swatch" style="background: #C9A962;"></div><span class="color-name">鎏金</span></div>
+            <div class="color-item"><div class="color-swatch" style="background: #5B8A8F;"></div><span class="color-name">瓷青</span></div>
+            <div class="color-item"><div class="color-swatch" style="background: #FDFBF7;"></div><span class="color-name">米白</span></div>
+        </div>
+    </div>
+    <!-- 工艺步骤 -->
+    <div class="steps-section">
+        <div class="section-title">工艺步骤</div>
+        <div class="steps-list">
+            <div class="step-item"><div class="step-circle">1</div><div class="step-name">选珠</div></div>
+            <div class="step-item"><div class="step-circle">2</div><div class="step-name">穿珠</div></div>
+            <div class="step-item"><div class="step-circle">3</div><div class="step-name">组合</div></div>
+            <div class="step-item"><div class="step-circle">4</div><div class="step-name">固定</div></div>
+        </div>
+    </div>
+    <!-- 相关推荐 -->
+    <div class="recommend-section">
+        <div class="section-title">相关纹样推荐</div>
+        <div class="recommend-grid">
+            <div class="recommend-card"><div class="recommend-image"></div><div class="recommend-name">花开富贵</div></div>
+            <div class="recommend-card"><div class="recommend-image"></div><div class="recommend-name">锦上添花</div></div>
+            <div class="recommend-card"><div class="recommend-image"></div><div class="recommend-name">龙凤呈祥</div></div>
+        </div>
+    </div>
+    <!-- 底部按钮 -->
+    <div class="action-bar">
+        <button class="action-btn btn-secondary" onclick="this.classList.toggle('active'); this.textContent = this.classList.contains('active') ? '已收藏' : '收藏'">收藏</button>
+        <button class="action-btn btn-primary" onclick="window.location.href='设计工坊.html'">进入设计工坊</button>
+    </div>
+    <script>
+        // 返回
+        document.querySelector('.back-btn').addEventListener('click', () => window.history.back());
+    </script>
+</body>
+</html>

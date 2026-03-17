@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数绘珠光 - 结算页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #5B8A8F; --primary-dark: #3D6B70; --bg-primary: #FDFBF7; --bg-card: #FFFFFF; --bg-muted: #F5F2EB; --accent-red: #C84B31; --accent-gold: #C9A962; --text-primary: #2C3E50; --text-secondary: #5D6D7E; --text-muted: #95A5A6; --border-light: #E8E4DC; --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --radius-md: 8px; --radius-lg: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: var(--bg-primary); color: var(--text-primary); padding-bottom: 80px; min-height: 100vh; }
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(253,251,247,0.95); padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 12px; }
+        .back-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+        .back-btn svg { width: 20px; height: 20px; }
+        .page-title { font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 600; }
+        /* 地址卡片 */
+        .address-card { background: var(--bg-card); margin: 12px 16px; padding: 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+        .address-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .address-label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+        .address-label svg { width: 18px; height: 18px; color: var(--primary); }
+        .address-change { font-size: 13px; color: var(--primary); }
+        .address-info { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+        .address-user { margin-bottom: 4px; }
+        .address-default { display: inline-block; background: var(--accent-red); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
+        /* 商品清单 */
+        .products-section { background: var(--bg-card); margin: 12px 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+        .section-title { font-size: 15px; font-weight: 600; padding: 16px; border-bottom: 1px solid var(--border-light); }
+        .product-item { display: flex; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border-light); }
+        .product-item:last-child { border-bottom: none; }
+        .product-image { width: 70px; height: 70px; border-radius: var(--radius-md); background: var(--bg-muted); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .product-image svg { width: 30px; height: 30px; color: var(--text-muted); }
+        .product-info { flex: 1; }
+        .product-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+        .product-spec { font-size: 12px; color: var(--text-muted); }
+        .product-price { font-size: 14px; font-weight: 600; color: var(--accent-red); margin-top: 8px; }
+        /* 配送方式 */
+        .delivery-section { background: var(--bg-card); margin: 12px 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+        .delivery-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border-light); }
+        .delivery-row:last-child { border-bottom: none; }
+        .delivery-label { font-size: 14px; color: var(--text-secondary); }
+        .delivery-value { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .delivery-value svg { width: 16px; height: 16px; color: var(--primary); }
+        /* 优惠券 */
+        .coupon-section { background: var(--bg-card); margin: 12px 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+        .coupon-left { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .coupon-left svg { width: 18px; height: 18px; color: var(--accent-red); }
+        .coupon-right { display: flex; align-items: center; gap: 4px; font-size: 14px; color: var(--primary); }
+        .coupon-right svg { width: 16px; height: 16px; }
+        /* 价格明细 */
+        .price-section { background: var(--bg-card); margin: 12px 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 16px; }
+        .price-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .price-row:last-child { margin-bottom: 0; padding-top: 10px; border-top: 1px solid var(--border-light); font-weight: 600; }
+        .price-label { color: var(--text-secondary); }
+        .price-value { color: var(--accent-red); }
+        .price-total .price-value { font-size: 18px; }
+        /* 底部操作栏 */
+        .action-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 80px; background: var(--bg-card); border-top: 1px solid var(--border-light); display: flex; align-items: center; padding: 0 16px; padding-bottom: env(safe-area-inset-bottom); z-index: 100; }
+        .total-label { font-size: 14px; color: var(--text-secondary); }
+        .total-price { font-size: 24px; font-weight: 700; color: var(--accent-red); margin-left: 4px; }
+        .total-price::before { content: '¥'; font-size: 14px; }
+        .submit-btn { margin-left: auto; width: 120px; height: 48px; border-radius: 24px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; font-size: 16px; font-weight: 500; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="page-title">确认订单</div>
+    </header>
+    <!-- 地址 -->
+    <div class="address-card">
+        <div class="address-header">
+            <div class="address-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>收货地址</div>
+            <div class="address-change">切换</div>
+        </div>
+        <div class="address-info">
+            <span class="address-user">张三 <span class="address-default">默认</span></span>
+            <div>福建省泉州市鲤城区中山路123号</div>
+            <div>138****8888</div>
+        </div>
+    </div>
+    <!-- 商品清单 -->
+    <div class="products-section">
+        <div class="section-title">商品清单</div>
+        <div class="product-item">
+            <div class="product-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+            <div class="product-info">
+                <div class="product-name">珠绣平安香囊</div>
+                <div class="product-spec">标准款 x1</div>
+                <div class="product-price">128</div>
+            </div>
+        </div>
+        <div class="product-item">
+            <div class="product-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg></div>
+            <div class="product-info">
+                <div class="product-name">凤凰牡丹胸针</div>
+                <div class="product-spec">精品款 x2</div>
+                <div class="product-price">512</div>
+            </div>
+        </div>
+    </div>
+    <!-- 配送方式 -->
+    <div class="delivery-section">
+        <div class="delivery-row">
+            <span class="delivery-label">配送方式</span>
+            <div class="delivery-value">快递配送 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="delivery-row">
+            <span class="delivery-label">配送时间</span>
+            <div class="delivery-value">工作日发货 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+    </div>
+    <!-- 优惠券 -->
+    <div class="coupon-section">
+        <div class="coupon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>优惠券</div>
+        <div class="coupon-right">满100减10 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
+    <!-- 价格明细 -->
+    <div class="price-section">
+        <div class="price-row"><span class="price-label">商品总价</span><span class="price-value">¥640</span></div>
+        <div class="price-row"><span class="price-label">运费</span><span class="price-value">¥0</span></div>
+        <div class="price-row"><span class="price-label">优惠券</span><span class="price-value">-¥10</span></div>
+        <div class="price-row price-total"><span class="price-label">实付金额</span><span class="price-value">¥630</span></div>
+    </div>
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+        <span class="total-label">合计:</span><span class="total-price">630</span>
+        <button class="submit-btn" onclick="window.location.href='支付页.html'">提交订单</button>
+    </div>
+    <script>
+        // 返回
+        document.querySelector('.back-btn').addEventListener('click', () => window.history.back());
+    </script>
+</body>
+</html>

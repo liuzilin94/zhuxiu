@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数绘珠光 - 支付成功</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #5B8A8F; --primary-dark: #3D6B70; --bg-primary: #FDFBF7; --bg-card: #FFFFFF; --bg-muted: #F5F2EB; --accent-red: #C84B31; --success: #52C41A; --text-primary: #2C3E50; --text-secondary: #5D6D7E; --text-muted: #95A5A6; --border-light: #E8E4DC; --radius-lg: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+        /* 成功图标 */
+        .success-section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+        .success-icon { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--success), #3da321); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; animation: scaleIn 0.5s ease; }
+        @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+        .success-icon svg { width: 50px; height: 50px; color: white; }
+        .success-title { font-family: "Noto Serif SC", serif; font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+        .success-desc { font-size: 14px; color: var(--text-secondary); text-align: center; margin-bottom: 24px; }
+        .order-info-box { background: var(--bg-card); padding: 20px; border-radius: var(--radius-lg); width: 100%; max-width: 320px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .info-row:last-child { margin-bottom: 0; }
+        .info-label { color: var(--text-muted); }
+        .info-value { color: var(--text-primary); }
+        /* 按钮 */
+        .action-buttons { padding: 20px; display: flex; gap: 12px; }
+        .action-btn { flex: 1; height: 48px; border-radius: 24px; font-size: 15px; font-weight: 500; cursor: pointer; }
+        .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: white; }
+    </style>
+</head>
+<body>
+    <div class="success-section">
+        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="success-title">支付成功</div>
+        <div class="success-desc">您的订单已支付成功<br>商品将尽快为您发出</div>
+        <div class="order-info-box">
+            <div class="info-row"><span class="info-label">订单编号</span><span class="info-value">20240317001234</span></div>
+            <div class="info-row"><span class="info-label">支付金额</span><span class="info-value" style="color: var(--accent-red); font-weight: 600;">¥630</span></div>
+            <div class="info-row"><span class="info-label">支付方式</span><span class="info-value">微信支付</span></div>
+        </div>
+    </div>
+    <div class="action-buttons">
+        <button class="action-btn btn-outline" onclick="window.location.href='订单详情.html'">查看订单</button>
+        <button class="action-btn btn-primary" onclick="window.location.href='首页.html'">返回首页</button>
+    </div>
+</body>
+</html>

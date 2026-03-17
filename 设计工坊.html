@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数绘珠光 - 设计工坊</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5B8A8F;
+            --primary-light: #7BA3A8;
+            --primary-dark: #3D6B70;
+            --bg-primary: #FDFBF7;
+            --bg-secondary: #F8F5EF;
+            --bg-card: #FFFFFF;
+            --bg-muted: #F5F2EB;
+            --accent-red: #C84B31;
+            --accent-gold: #C9A962;
+            --text-primary: #2C3E50;
+            --text-secondary: #5D6D7E;
+            --text-muted: #95A5A6;
+            --border-light: #E8E4DC;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: var(--bg-primary); color: var(--text-primary); padding-bottom: 70px; min-height: 100vh; }
+        /* 顶部导航 */
+        .header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(253,251,247,0.95); backdrop-filter: blur(10px);
+            padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top));
+            border-bottom: 1px solid var(--border-light);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 700; color: var(--primary); }
+        .header-right { display: flex; gap: 12px; }
+        .icon-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: transparent; border: none; cursor: pointer; }
+        .icon-btn svg { width: 22px; height: 22px; color: var(--text-secondary); }
+        /* 搜索框 */
+        .search-bar { margin: 12px 16px 0; }
+        .search-input-wrapper { display: flex; align-items: center; background: var(--bg-muted); border-radius: 20px; padding: 10px 16px; gap: 8px; }
+        .search-input-wrapper svg { width: 18px; height: 18px; color: var(--text-muted); }
+        .search-input { flex: 1; border: none; background: transparent; font-size: 14px; outline: none; }
+        /* 分类标签 */
+        .category-tabs { display: flex; background: var(--bg-card); border-bottom: 1px solid var(--border-light); overflow-x: auto; padding: 0 16px; }
+        .tab-item { flex: 1; min-width: 70px; padding: 14px 8px; text-align: center; font-size: 13px; color: var(--text-secondary); cursor: pointer; white-space: nowrap; position: relative; }
+        .tab-item.active { color: var(--primary); font-weight: 500; }
+        .tab-item.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: var(--primary); border-radius: 2px; }
+        /* 纹样网格 */
+        .pattern-section { padding: 16px; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .section-title::before { content: ''; width: 3px; height: 16px; background: var(--primary); border-radius: 2px; }
+        .pattern-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .pattern-card { background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; }
+        .pattern-image { width: 100%; aspect-ratio: 3/4; background: linear-gradient(135deg, var(--primary-light), var(--primary)); position: relative; display: flex; align-items: center; justify-content: center; }
+        .pattern-favorite { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; }
+        .pattern-favorite svg { width: 14px; height: 14px; color: var(--text-muted); }
+        .pattern-favorite.active svg { color: var(--accent-red); fill: var(--accent-red); }
+        .pattern-icon { width: 50%; height: 50%; opacity: 0.3; }
+        .pattern-info { padding: 10px; }
+        .pattern-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .pattern-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        /* 视频列表 */
+        .video-list { padding: 0 16px 16px; }
+        .video-card { background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+        .video-cover { position: relative; width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, var(--primary-dark), var(--primary)); display: flex; align-items: center; justify-content: center; }
+        .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+        .play-btn svg { width: 20px; height: 20px; color: white; margin-left: 3px; }
+        .video-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; font-size: 11px; padding: 2px 6px; border-radius: 4px; }
+        .video-info { padding: 12px; }
+        .video-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+        .video-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 8px; }
+        .video-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+        /* 底部导航 */
+        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: var(--bg-card); border-top: 1px solid var(--border-light); display: flex; padding-bottom: env(safe-area-inset-bottom); z-index: 100; }
+        .tab-item-nav { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; }
+        .tab-item-nav.active .tab-icon { color: var(--primary); }
+        .tab-item-nav.active .tab-label { color: var(--primary); }
+        .tab-icon { width: 24px; height: 24px; color: var(--text-muted); }
+        .tab-label { font-size: 10px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="logo">设计工坊</div>
+        <div class="header-right">
+            <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+            <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+        </div>
+    </header>
+    <!-- 搜索框 -->
+    <div class="search-bar">
+        <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="search-input" placeholder="搜索纹样、元素...">
+        </div>
+    </div>
+    <!-- 分类标签 -->
+    <div class="category-tabs">
+        <div class="tab-item active">吉祥纹</div>
+        <div class="tab-item">花卉纹</div>
+        <div class="tab-item">动物纹</div>
+        <div class="tab-item">几何纹</div>
+        <div class="tab-item">人物纹</div>
+    </div>
+    <!-- 传统纹样 -->
+    <div class="pattern-section">
+        <div class="section-title">传统纹样</div>
+        <div class="pattern-grid">
+            <div class="pattern-card">
+                <div class="pattern-image">
+                    <div class="pattern-favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                </div>
+                <div class="pattern-info"><div class="pattern-name">凤穿牡丹</div><div class="pattern-desc">传统吉祥纹样</div></div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image">
+                    <div class="pattern-favorite active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                </div>
+                <div class="pattern-info"><div class="pattern-name">花开富贵</div><div class="pattern-desc">寓意荣华富贵</div></div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image"><div class="pattern-favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div>
+                <div class="pattern-info"><div class="pattern-name">锦上添花</div><div class="pattern-desc">精美装饰纹样</div></div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image"><div class="pattern-favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div>
+                <div class="pattern-info"><div class="pattern-name">龙凤呈祥</div><div class="pattern-desc">吉祥寓意纹样</div></div>
+            </div>
+        </div>
+    </div>
+    <!-- 设计教程 -->
+    <div class="video-list">
+        <div class="section-title">设计教程</div>
+        <div class="video-card">
+            <div class="video-cover">
+                <div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="video-duration">08:30</div>
+            </div>
+            <div class="video-info">
+                <div class="video-title">如何设计一件珠绣作品</div>
+                <div class="video-meta"><span>1.2万播放</span><span class="video-meta-dot"></span><span>32赞</span></div>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-cover">
+                <div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="video-duration">05:20</div>
+            </div>
+            <div class="video-info">
+                <div class="video-title">珠绣配色技巧详解</div>
+                <div class="video-meta"><span>8.5千播放</span><span class="video-meta-dot"></span><span>156赞</span></div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部导航 -->
+    <nav class="tab-bar">
+        <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="tab-label">首页</span></div>
+        <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span class="tab-label">文化馆</span></div>
+        <div class="tab-item-nav active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span class="tab-label">设计工坊</span></div>
+        <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="tab-label">社区</span></div>
+        <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="tab-label">我的</span></div>
+    </nav>
+    <script>
+        document.querySelectorAll('.category-tabs .tab-item').forEach(t => {
+            t.addEventListener('click', () => {
+                document.querySelectorAll('.category-tabs .tab-item').forEach(x => x.classList.remove('active'));
+                t.classList.add('active');
+            });
+        });
+
+        // 底部导航跳转
+        document.querySelectorAll('.tab-item-nav').forEach(item => {
+            item.addEventListener('click', function() {
+                const label = this.querySelector('.tab-label').textContent;
+                switch(label) {
+                    case '首页': window.location.href = '首页.html'; break;
+                    case '文化馆': window.location.href = '文化馆.html'; break;
+                    case '设计工坊': window.location.href = '设计工坊.html'; break;
+                    case '社区': window.location.href = '作品社区.html'; break;
+                    case '我的': window.location.href = '个人中心.html'; break;
+                }
+            });
+        });
+
+        // 纹样卡片跳转
+        document.querySelectorAll('.pattern-card').forEach(card => {
+            card.addEventListener('click', () => window.location.href = '纹样详情.html');
+        });
+
+        // 视频卡片跳转
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', () => window.location.href = '视频播放.html');
+        });
+
+        // 收藏按钮
+        document.querySelectorAll('.pattern-favorite').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
