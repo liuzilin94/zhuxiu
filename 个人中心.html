@@ -27,6 +27,11 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: "Noto Sans SC", sans-serif; background: var(--bg-primary); color: var(--text-primary); padding-bottom: 70px; min-height: 100vh; }
+
+        /* 顶部标题栏 */
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(253,251,247,0.95); backdrop-filter: blur(10px); padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); border-bottom: 1px solid var(--border-light); }
+        .header-title { font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 600; text-align: center; }
+
         /* 顶部用户信息 */
         .profile-header {
             background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -137,6 +142,7 @@
     <nav class="tab-bar">
         <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="tab-label">首页</span></div>
         <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span class="tab-label">文化馆</span></div>
+        <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="tab-label">商城</span></div>
         <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span class="tab-label">设计工坊</span></div>
         <div class="tab-item-nav"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="tab-label">社区</span></div>
         <div class="tab-item-nav active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="tab-label">我的</span></div>
@@ -149,6 +155,7 @@
                 switch(label) {
                     case '首页': window.location.href = 'index.html'; break;
                     case '文化馆': window.location.href = '文化馆.html'; break;
+                    case '商城': window.location.href = '商城列表.html'; break;
                     case '设计工坊': window.location.href = '设计工坊.html'; break;
                     case '社区': window.location.href = '作品社区.html'; break;
                     case '我的': window.location.href = '个人中心.html'; break;

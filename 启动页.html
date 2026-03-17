@@ -327,10 +327,15 @@
         // 初始化
         createPearls();
         
-        // 3秒后跳转（演示用，实际项目中这里会跳转到首页）
-        // setTimeout(() => {
-        //     console.log('跳转到首页...');
-        // }, 3000);
+        // 3秒后自动跳转到首页
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 3000);
+        
+        // 点击可跳过直接跳转
+        document.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
     </script>
 </body>
 </html>

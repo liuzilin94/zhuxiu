@@ -33,7 +33,7 @@ function initTabBar() {
             // 根据标签页跳转到对应页面
             switch(label) {
                 case '首页':
-                    navigateTo('首页');
+                    navigateTo('index');
                     break;
                 case '文化馆':
                     navigateTo('文化馆');
