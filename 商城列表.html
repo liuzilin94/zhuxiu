@@ -216,6 +216,12 @@
             overflow: hidden;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .product-image-placeholder {
             width: 50%;
             height: 50%;
@@ -456,11 +462,7 @@
         <div class="product-card">
             <div class="product-image">
                 <span class="product-tag">热销</span>
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    </svg>
-                </div>
+                <img src="static/xiangnang.jpg" alt="珠绣平安香囊">
             </div>
             <div class="product-info">
                 <div class="product-name">珠绣平安香囊</div>
@@ -479,88 +481,11 @@
 
         <div class="product-card">
             <div class="product-image">
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                    </svg>
-                </div>
+                <img src="static/xiongzhen.jpg" alt="凤凰牡丹胸针">
             </div>
             <div class="product-info">
                 <div class="product-name">凤凰牡丹胸针</div>
                 <div class="product-tags">精品手工 | 收藏级</div>
-                <div class="product-bottom">
-                    <div class="product-price">256</div>
-                    <button class="add-cart-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-tag">新品</span>
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="product-info">
-                <div class="product-name">珠绣材料包入门套装</div>
-                <div class="product-tags">新手必备 | 齐全配件</div>
-                <div class="product-bottom">
-                    <div class="product-price">88</div>
-                    <button class="add-cart-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="product-info">
-                <div class="product-name">真丝绣布卷轴</div>
-                <div class="product-tags">优质面料 | 精工制作</div>
-                <div class="product-bottom">
-                    <div class="product-price">168</div>
-                    <button class="add-cart-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-tag">折扣</span>
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="product-info">
-                <div class="product-name">天然淡水珍珠散珠</div>
-                <div class="product-tags">A级珍珠 | 多规格</div>
                 <div class="product-bottom">
                     <div class="product-price">45</div>
                     <button class="add-cart-btn">
@@ -575,11 +500,66 @@
 
         <div class="product-card">
             <div class="product-image">
-                <div class="product-image-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                    </svg>
+                <span class="product-tag">新品</span>
+                <img src="static/fanbubao.jpg" alt="帆布包">
+            </div>
+            <div class="product-info">
+                <div class="product-name">帆布包</div>
+                <div class="product-tags">猫咪荷叶 | 简洁百搭</div>
+                <div class="product-bottom">
+                    <div class="product-price">56</div>
+                    <button class="add-cart-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="static/tuanshan.jpg" alt="团扇">
+            </div>
+            <div class="product-info">
+                <div class="product-name">团扇</div>
+                <div class="product-tags">优质面料 | 精工制作</div>
+                <div class="product-bottom">
+                    <div class="product-price">88</div>
+                    <button class="add-cart-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-tag">折扣</span>
+                <img src="static/zhuangshihua.jpg" alt="装饰画">
+            </div>
+            <div class="product-info">
+                <div class="product-name">装饰画</div>
+                <div class="product-tags">鸟 | 多规格</div>
+                <div class="product-bottom">
+                    <div class="product-price">45</div>
+                    <button class="add-cart-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="static/xiangnang.jpg" alt="专业绣花针套装">
             </div>
             <div class="product-info">
                 <div class="product-name">专业绣花针套装</div>

@@ -337,6 +337,15 @@
             overflow: hidden;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
         .product-image-placeholder {
             width: 60%;
             height: 60%;
@@ -441,6 +450,15 @@
             align-items: center;
             justify-content: center;
             position: relative;
+        }
+
+        .pattern-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .pattern-favorite {
@@ -743,8 +761,9 @@
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-image">
+                    <img src="static/xiangnang.jpg" alt="珠绣平安香囊">
                     <div class="product-image-placeholder">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M12 6v6l4 2"/>
                         </svg>
@@ -766,8 +785,9 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
+                    <img src="static/xiongzhen.jpg" alt="胸针">
                     <div class="product-image-placeholder">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M12 6v6l4 2"/>
                         </svg>
@@ -804,6 +824,7 @@
         <div class="pattern-grid">
             <div class="pattern-card">
                 <div class="pattern-image">
+                    <img src="1.jpg" alt="凤穿牡丹">
                     <div class="pattern-favorite">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -817,6 +838,7 @@
             </div>
             <div class="pattern-card">
                 <div class="pattern-image">
+                    <img src="2.jpg" alt="花开富贵">
                     <div class="pattern-favorite active">
                         <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -826,6 +848,48 @@
                 <div class="pattern-info">
                     <div class="pattern-name">花开富贵</div>
                     <div class="pattern-desc">寓意荣华富贵</div>
+                </div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image">
+                    <img src="3.jpg" alt="锦上添花">
+                    <div class="pattern-favorite">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="pattern-info">
+                    <div class="pattern-name">锦上添花</div>
+                    <div class="pattern-desc">精美装饰纹样</div>
+                </div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image">
+                    <img src="4.jpg" alt="龙凤呈祥">
+                    <div class="pattern-favorite">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="pattern-info">
+                    <div class="pattern-name">龙凤呈祥</div>
+                    <div class="pattern-desc">吉祥寓意纹样</div>
+                </div>
+            </div>
+            <div class="pattern-card">
+                <div class="pattern-image">
+                    <img src="5.png" alt="祥云瑞气">
+                    <div class="pattern-favorite">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="pattern-info">
+                    <div class="pattern-name">祥云瑞气</div>
+                    <div class="pattern-desc">云纹装饰</div>
                 </div>
             </div>
         </div>
